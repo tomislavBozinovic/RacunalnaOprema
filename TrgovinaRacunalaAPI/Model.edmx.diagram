@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="53d34a9c75f5443cbcd2d036fc2e162c" Name="Diagram1">
+        <EntityTypeShape EntityType="TrgovinaProjektModel.Kategorija" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="TrgovinaProjektModel.Partneri" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="TrgovinaProjektModel.Proizvod" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="TrgovinaProjektModel.Racun" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="TrgovinaProjektModel.StavkaRacuna" Width="1.5" PointX="5.25" PointY="1" />
+        <AssociationConnector Association="TrgovinaProjektModel.FK__Proizvod__katego__286302EC" />
+        <AssociationConnector Association="TrgovinaProjektModel.FK__Racun__partnerId__2F10007B" />
+        <AssociationConnector Association="TrgovinaProjektModel.FK__StavkaRac__proiz__2B3F6F97" />
+        <AssociationConnector Association="TrgovinaProjektModel.FK_StavkaRacuna_Racun" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

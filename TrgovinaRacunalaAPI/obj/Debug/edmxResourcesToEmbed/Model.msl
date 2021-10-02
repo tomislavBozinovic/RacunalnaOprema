@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TrgovinaProjektModelStoreContainer" CdmEntityContainer="TrgovinaProjektEntities">
+    <EntitySetMapping Name="Kategorijas">
+      <EntityTypeMapping TypeName="TrgovinaProjektModel.Kategorija">
+        <MappingFragment StoreEntitySet="Kategorija">
+          <ScalarProperty Name="Proizvodac" ColumnName="Proizvodac" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="kategorijaId" ColumnName="kategorijaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Partneris">
+      <EntityTypeMapping TypeName="TrgovinaProjektModel.Partneri">
+        <MappingFragment StoreEntitySet="Partneri">
+          <ScalarProperty Name="Popust" ColumnName="Popust" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="partnerId" ColumnName="partnerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proizvods">
+      <EntityTypeMapping TypeName="TrgovinaProjektModel.Proizvod">
+        <MappingFragment StoreEntitySet="Proizvod">
+          <ScalarProperty Name="Garancija" ColumnName="Garancija" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+          <ScalarProperty Name="kategorijaId" ColumnName="kategorijaId" />
+          <ScalarProperty Name="proizvodId" ColumnName="proizvodId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Racuns">
+      <EntityTypeMapping TypeName="TrgovinaProjektModel.Racun">
+        <MappingFragment StoreEntitySet="Racun">
+          <ScalarProperty Name="brojRacuna" ColumnName="brojRacuna" />
+          <ScalarProperty Name="datum" ColumnName="datum" />
+          <ScalarProperty Name="partnerId" ColumnName="partnerId" />
+          <ScalarProperty Name="racunId" ColumnName="racunId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StavkaRacunas">
+      <EntityTypeMapping TypeName="TrgovinaProjektModel.StavkaRacuna">
+        <MappingFragment StoreEntitySet="StavkaRacuna">
+          <ScalarProperty Name="cijena" ColumnName="cijena" />
+          <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+          <ScalarProperty Name="proizvodId" ColumnName="proizvodId" />
+          <ScalarProperty Name="racunId" ColumnName="racunId" />
+          <ScalarProperty Name="stavkaId" ColumnName="stavkaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

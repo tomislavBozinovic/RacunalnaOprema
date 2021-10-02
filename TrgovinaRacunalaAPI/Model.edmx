@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TrgovinaProjektModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kategorija">
+          <Key>
+            <PropertyRef Name="kategorijaId" />
+          </Key>
+          <Property Name="kategorijaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Proizvodac" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Partneri">
+          <Key>
+            <PropertyRef Name="partnerId" />
+          </Key>
+          <Property Name="partnerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Popust" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proizvod">
+          <Key>
+            <PropertyRef Name="proizvodId" />
+          </Key>
+          <Property Name="proizvodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kategorijaId" Type="int" Nullable="false" />
+          <Property Name="Cijena" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="Naziv" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Garancija" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="racunId" />
+          </Key>
+          <Property Name="racunId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="partnerId" Type="int" Nullable="false" />
+          <Property Name="datum" Type="datetime" Nullable="false" />
+          <Property Name="brojRacuna" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StavkaRacuna">
+          <Key>
+            <PropertyRef Name="stavkaId" />
+          </Key>
+          <Property Name="stavkaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="racunId" Type="int" Nullable="false" />
+          <Property Name="proizvodId" Type="int" Nullable="false" />
+          <Property Name="kolicina" Type="int" Nullable="false" />
+          <Property Name="cijena" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Proizvod__katego__286302EC">
+          <End Role="Kategorija" Type="Self.Kategorija" Multiplicity="1" />
+          <End Role="Proizvod" Type="Self.Proizvod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorija">
+              <PropertyRef Name="kategorijaId" />
+            </Principal>
+            <Dependent Role="Proizvod">
+              <PropertyRef Name="kategorijaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Racun__partnerId__2F10007B">
+          <End Role="Partneri" Type="Self.Partneri" Multiplicity="1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partneri">
+              <PropertyRef Name="partnerId" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="partnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StavkaRac__proiz__2B3F6F97">
+          <End Role="Proizvod" Type="Self.Proizvod" Multiplicity="1" />
+          <End Role="StavkaRacuna" Type="Self.StavkaRacuna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proizvod">
+              <PropertyRef Name="proizvodId" />
+            </Principal>
+            <Dependent Role="StavkaRacuna">
+              <PropertyRef Name="proizvodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StavkaRacuna_Racun">
+          <End Role="Racun" Type="Self.Racun" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StavkaRacuna" Type="Self.StavkaRacuna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racun">
+              <PropertyRef Name="racunId" />
+            </Principal>
+            <Dependent Role="StavkaRacuna">
+              <PropertyRef Name="racunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TrgovinaProjektModelStoreContainer">
+          <EntitySet Name="Kategorija" EntityType="Self.Kategorija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Partneri" EntityType="Self.Partneri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proizvod" EntityType="Self.Proizvod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Racun" EntityType="Self.Racun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StavkaRacuna" EntityType="Self.StavkaRacuna" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Proizvod__katego__286302EC" Association="Self.FK__Proizvod__katego__286302EC">
+            <End Role="Kategorija" EntitySet="Kategorija" />
+            <End Role="Proizvod" EntitySet="Proizvod" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Racun__partnerId__2F10007B" Association="Self.FK__Racun__partnerId__2F10007B">
+            <End Role="Partneri" EntitySet="Partneri" />
+            <End Role="Racun" EntitySet="Racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StavkaRac__proiz__2B3F6F97" Association="Self.FK__StavkaRac__proiz__2B3F6F97">
+            <End Role="Proizvod" EntitySet="Proizvod" />
+            <End Role="StavkaRacuna" EntitySet="StavkaRacuna" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StavkaRacuna_Racun" Association="Self.FK_StavkaRacuna_Racun">
+            <End Role="Racun" EntitySet="Racun" />
+            <End Role="StavkaRacuna" EntitySet="StavkaRacuna" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TrgovinaProjektModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TrgovinaProjektEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kategorijas" EntityType="TrgovinaProjektModel.Kategorija" />
+          <EntitySet Name="Partneris" EntityType="TrgovinaProjektModel.Partneri" />
+          <EntitySet Name="Proizvods" EntityType="TrgovinaProjektModel.Proizvod" />
+          <EntitySet Name="Racuns" EntityType="TrgovinaProjektModel.Racun" />
+          <EntitySet Name="StavkaRacunas" EntityType="TrgovinaProjektModel.StavkaRacuna" />
+          <AssociationSet Name="FK__Proizvod__katego__286302EC" Association="TrgovinaProjektModel.FK__Proizvod__katego__286302EC">
+            <End Role="Kategorija" EntitySet="Kategorijas" />
+            <End Role="Proizvod" EntitySet="Proizvods" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Racun__partnerId__2F10007B" Association="TrgovinaProjektModel.FK__Racun__partnerId__2F10007B">
+            <End Role="Partneri" EntitySet="Partneris" />
+            <End Role="Racun" EntitySet="Racuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StavkaRac__proiz__2B3F6F97" Association="TrgovinaProjektModel.FK__StavkaRac__proiz__2B3F6F97">
+            <End Role="Proizvod" EntitySet="Proizvods" />
+            <End Role="StavkaRacuna" EntitySet="StavkaRacunas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StavkaRacuna_Racun" Association="TrgovinaProjektModel.FK_StavkaRacuna_Racun">
+            <End Role="Racun" EntitySet="Racuns" />
+            <End Role="StavkaRacuna" EntitySet="StavkaRacunas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Kategorija">
+          <Key>
+            <PropertyRef Name="kategorijaId" />
+          </Key>
+          <Property Name="kategorijaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Proizvodac" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Proizvods" Relationship="TrgovinaProjektModel.FK__Proizvod__katego__286302EC" FromRole="Kategorija" ToRole="Proizvod" />
+        </EntityType>
+        <EntityType Name="Partneri">
+          <Key>
+            <PropertyRef Name="partnerId" />
+          </Key>
+          <Property Name="partnerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Popust" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <NavigationProperty Name="Racuns" Relationship="TrgovinaProjektModel.FK__Racun__partnerId__2F10007B" FromRole="Partneri" ToRole="Racun" />
+        </EntityType>
+        <EntityType Name="Proizvod">
+          <Key>
+            <PropertyRef Name="proizvodId" />
+          </Key>
+          <Property Name="proizvodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kategorijaId" Type="Int32" Nullable="false" />
+          <Property Name="Cijena" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Garancija" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Kategorija" Relationship="TrgovinaProjektModel.FK__Proizvod__katego__286302EC" FromRole="Proizvod" ToRole="Kategorija" />
+          <NavigationProperty Name="StavkaRacunas" Relationship="TrgovinaProjektModel.FK__StavkaRac__proiz__2B3F6F97" FromRole="Proizvod" ToRole="StavkaRacuna" />
+        </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="racunId" />
+          </Key>
+          <Property Name="racunId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="partnerId" Type="Int32" Nullable="false" />
+          <Property Name="datum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="brojRacuna" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Partneri" Relationship="TrgovinaProjektModel.FK__Racun__partnerId__2F10007B" FromRole="Racun" ToRole="Partneri" />
+          <NavigationProperty Name="StavkaRacunas" Relationship="TrgovinaProjektModel.FK_StavkaRacuna_Racun" FromRole="Racun" ToRole="StavkaRacuna" />
+        </EntityType>
+        <EntityType Name="StavkaRacuna">
+          <Key>
+            <PropertyRef Name="stavkaId" />
+          </Key>
+          <Property Name="stavkaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="racunId" Type="Int32" Nullable="false" />
+          <Property Name="proizvodId" Type="Int32" Nullable="false" />
+          <Property Name="kolicina" Type="Int32" Nullable="false" />
+          <Property Name="cijena" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Proizvod" Relationship="TrgovinaProjektModel.FK__StavkaRac__proiz__2B3F6F97" FromRole="StavkaRacuna" ToRole="Proizvod" />
+          <NavigationProperty Name="Racun" Relationship="TrgovinaProjektModel.FK_StavkaRacuna_Racun" FromRole="StavkaRacuna" ToRole="Racun" />
+        </EntityType>
+        <Association Name="FK__Proizvod__katego__286302EC">
+          <End Type="TrgovinaProjektModel.Kategorija" Role="Kategorija" Multiplicity="1" />
+          <End Type="TrgovinaProjektModel.Proizvod" Role="Proizvod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorija">
+              <PropertyRef Name="kategorijaId" />
+            </Principal>
+            <Dependent Role="Proizvod">
+              <PropertyRef Name="kategorijaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Racun__partnerId__2F10007B">
+          <End Type="TrgovinaProjektModel.Partneri" Role="Partneri" Multiplicity="1" />
+          <End Type="TrgovinaProjektModel.Racun" Role="Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partneri">
+              <PropertyRef Name="partnerId" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="partnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StavkaRac__proiz__2B3F6F97">
+          <End Type="TrgovinaProjektModel.Proizvod" Role="Proizvod" Multiplicity="1" />
+          <End Type="TrgovinaProjektModel.StavkaRacuna" Role="StavkaRacuna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proizvod">
+              <PropertyRef Name="proizvodId" />
+            </Principal>
+            <Dependent Role="StavkaRacuna">
+              <PropertyRef Name="proizvodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StavkaRacuna_Racun">
+          <End Type="TrgovinaProjektModel.Racun" Role="Racun" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TrgovinaProjektModel.StavkaRacuna" Role="StavkaRacuna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racun">
+              <PropertyRef Name="racunId" />
+            </Principal>
+            <Dependent Role="StavkaRacuna">
+              <PropertyRef Name="racunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TrgovinaProjektModelStoreContainer" CdmEntityContainer="TrgovinaProjektEntities">
+          <EntitySetMapping Name="Kategorijas">
+            <EntityTypeMapping TypeName="TrgovinaProjektModel.Kategorija">
+              <MappingFragment StoreEntitySet="Kategorija">
+                <ScalarProperty Name="Proizvodac" ColumnName="Proizvodac" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="kategorijaId" ColumnName="kategorijaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Partneris">
+            <EntityTypeMapping TypeName="TrgovinaProjektModel.Partneri">
+              <MappingFragment StoreEntitySet="Partneri">
+                <ScalarProperty Name="Popust" ColumnName="Popust" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="partnerId" ColumnName="partnerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proizvods">
+            <EntityTypeMapping TypeName="TrgovinaProjektModel.Proizvod">
+              <MappingFragment StoreEntitySet="Proizvod">
+                <ScalarProperty Name="Garancija" ColumnName="Garancija" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+                <ScalarProperty Name="kategorijaId" ColumnName="kategorijaId" />
+                <ScalarProperty Name="proizvodId" ColumnName="proizvodId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Racuns">
+            <EntityTypeMapping TypeName="TrgovinaProjektModel.Racun">
+              <MappingFragment StoreEntitySet="Racun">
+                <ScalarProperty Name="brojRacuna" ColumnName="brojRacuna" />
+                <ScalarProperty Name="datum" ColumnName="datum" />
+                <ScalarProperty Name="partnerId" ColumnName="partnerId" />
+                <ScalarProperty Name="racunId" ColumnName="racunId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StavkaRacunas">
+            <EntityTypeMapping TypeName="TrgovinaProjektModel.StavkaRacuna">
+              <MappingFragment StoreEntitySet="StavkaRacuna">
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="proizvodId" ColumnName="proizvodId" />
+                <ScalarProperty Name="racunId" ColumnName="racunId" />
+                <ScalarProperty Name="stavkaId" ColumnName="stavkaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
